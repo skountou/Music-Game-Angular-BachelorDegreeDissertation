@@ -1,0 +1,64 @@
+<nb-layout>
+  <nb-layout-header>Find the note ♫♫♫</nb-layout-header>
+  <nb-layout-column>
+    <button class="back" (click)="navToMainMenu()">Go back</button>
+    <div class="row" id="center">
+      <div class="col-4">
+        <div id="score">SCORE: {{ score }}</div>
+      </div>
+      
+      <div class="col-4 align-center">
+        <button
+          (click)="restartGame()"
+          *ngIf="gameOver"
+          nbButton
+          status="danger"
+        >
+          Try again?<nb-icon icon="refresh"></nb-icon>
+        </button>
+      </div>
+      <div class="col-4">
+        <div class="lives">
+          Lives
+          <nb-icon
+            style="color: red"
+            *ngFor="let life of createLifeArray()"
+            icon="heart"
+          ></nb-icon>
+          <nb-icon
+            style="color: red"
+            *ngFor="let life of createNonLifeArray()"
+            icon="heart-outline"
+          ></nb-icon>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="row">
+      <div class="col-12 main-screen">
+        <div *ngIf="times === 0" class="bubble fade">
+          {{ "Ready?" | uppercase }}<br />
+          <br /><br />{{ "GO!" | uppercase }}
+        </div>
+        <div *ngIf="selectedNote" class="bubble">
+          {{ selectedNote }}
+        </div>
+        <div *ngIf="gameOver" style="line-height: normal" class="bubble">
+          {{ gameOverText }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 p-0 fade-in">
+      <div class="col-12 p-0">
+        <button
+          *ngFor="let key of noteList"
+          [class]="key.class ? key.class : 'displaynone'"
+          (click)="addScore(key.name)"
+        ></button>
+      </div>
+    </div>
+  </nb-layout-column>
+  <nb-layout-footer>Created by Sotiris Kountouriotis</nb-layout-footer>
+</nb-layout>
